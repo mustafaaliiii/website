@@ -1,0 +1,70 @@
+<!DOCTYPE html>  
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Page</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <?php session_start(); ?>
+    <div class="register-container">
+        <div class="register-box">
+            <h2>Create Account</h2>
+
+            <!-- Display messages -->
+            <?php if (isset($_SESSION['error'])): ?>
+                <div class="error-message" style="color: red;">
+                    <?php echo $_SESSION['error']; unset($_SESSION['error']); ?>
+                </div>
+            <?php endif; ?>
+            <?php if (isset($_SESSION['success'])): ?>
+                <div class="success-message" style="color: green;">
+                    <?php echo $_SESSION['success']; unset($_SESSION['success']); ?>
+                </div>
+            <?php endif; ?>
+
+            <form action="register.php" method="POST" id="registerForm" onsubmit="return validatePassword();">
+                <div class="input-box">
+                    <input type="text" name="name" required>
+                    <label for="name">Name</label>
+                </div>
+                <div class="input-box">
+                    <input type="text" name="contact_no" required>
+                    <label for="contact_no">Contact Number</label>
+                </div>
+                <div class="input-box">
+                    <input type="email" name="email" required>
+                    <label for="email">Email</label>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="password" name="password" required onkeyup="checkPasswordStrength()">
+                    <label for="password">Password</label>
+                    <div id="password-strength" class="strength-meter">
+                        <div id="strength-bar" class="strength-bar"></div>
+                    </div>
+                </div>
+                <div class="input-box">
+                    <input type="password" id="confirm-password" name="confirm_password" required>
+                    <label for="confirm-password">Confirm Password</label>
+                </div>
+
+                <!-- Password Requirements -->
+                <ul id="password-requirements">
+                    <li id="length" class="invalid">At least 8 characters</li>
+                    <li id="uppercase" class="invalid">At least 1 uppercase letter</li>
+                    <li id="number" class="invalid">At least 1 number</li>
+                    <li id="special" class="invalid">At least 1 special character</li>
+                </ul>
+
+                <button type="submit">Register</button>
+                <div class="login-link">
+                    <p style="color: silver;">Already have an account? <a href="login.html" style="color: green;">Login here</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
